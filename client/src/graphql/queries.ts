@@ -1,20 +1,45 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_DATA = gql`
   query GetData {
-    directors { id name nationality}
+    directors {
+      id
+      name
+      nationality
+    }
     movies {
-      id title releaseYear genre
-      director { id name }
-      reviews { id rating text }
+      id
+      title
+      releaseYear
+      genre
+      director {
+        id
+        name
+      }
+      reviews {
+        id
+        rating
+        text
+      }
     }
   }
 `;
 
 export const ADD_MOVIE = gql`
-  mutation AddMovie($title: String!, $releaseYear: Int!, $genre: MovieGenre!, $directorId: ID!) {
-    addMovie(title: $title, releaseYear: $releaseYear, genre: $genre, directorId: $directorId) {
-      id title
+  mutation AddMovie(
+    $title: String!
+    $releaseYear: Int!
+    $genre: MovieGenre!
+    $directorId: ID!
+  ) {
+    addMovie(
+      title: $title
+      releaseYear: $releaseYear
+      genre: $genre
+      directorId: $directorId
+    ) {
+      id
+      title
     }
   }
 `;
@@ -34,7 +59,12 @@ export const ADD_REVIEW = gql`
 `;
 
 export const REGISTER_USER = gql`
-  mutation RegisterUser($name: String!, $email: String!, $password: String!, $role: Role!) {
+  mutation RegisterUser(
+    $name: String!
+    $email: String!
+    $password: String!
+    $role: Role!
+  ) {
     registerUser(name: $name, email: $email, password: $password, role: $role) {
       id
       name
@@ -59,7 +89,7 @@ export const LOGIN_USER = gql`
 `;
 
 export const UPDATE_DIRECTOR = gql`
-  mutation UpdateDirector($id: Int!, $name: String, $nationality: String) {
+  mutation UpdateDirector($id: ID!, $name: String, $nationality: String) {
     updateDirector(id: $id, name: $name, nationality: $nationality) {
       id
       name
@@ -69,8 +99,18 @@ export const UPDATE_DIRECTOR = gql`
 `;
 
 export const UPDATE_MOVIE = gql`
-  mutation UpdateMovie($id: Int!, $title: String, $releaseYear: Int, $genre: MovieGenre) {
-    updateMovie(id: $id, title: $title, releaseYear: $releaseYear, genre: $genre) {
+  mutation UpdateMovie(
+    $id: ID!
+    $title: String
+    $releaseYear: Int
+    $genre: MovieGenre
+  ) {
+    updateMovie(
+      id: $id
+      title: $title
+      releaseYear: $releaseYear
+      genre: $genre
+    ) {
       id
       title
       releaseYear
