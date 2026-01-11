@@ -1,6 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+
 import App from './App'
+import AuthPage from './AuthPage'
 import './index.css'
 
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client'
@@ -16,7 +19,13 @@ const client = new ApolloClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<AuthPage />} />
+          <Route path="/home" element={<App />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>
 )
