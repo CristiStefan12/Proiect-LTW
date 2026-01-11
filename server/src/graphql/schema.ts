@@ -6,6 +6,23 @@ export const schema = `
     SCIFI
   }
 
+  enum Role {
+    ADMIN
+    USER
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+    role: Role!
+  }
+
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
   type Review {
     id: ID!
     rating: Int!
@@ -30,6 +47,7 @@ export const schema = `
   type Query {
     directors: [Director!]!
     movies: [Movie!]!
+    users: [User!]!
   }
 
   type Mutation {
@@ -37,5 +55,8 @@ export const schema = `
     addMovie(title: String!, releaseYear: Int!, genre: MovieGenre!, directorId: ID!): Movie!
     deleteMovie(id: ID!): String
     addReview(movieId: ID!, rating: Int!, text: String!): Review!
+    
+    registerUser(name: String!, email: String!, password: String!, role: Role!): User!
+    loginUser(email: String!, password: String!): AuthPayload!
   }
 `;
