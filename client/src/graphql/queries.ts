@@ -2,10 +2,10 @@ import { gql } from '@apollo/client';
 
 export const GET_DATA = gql`
   query GetData {
-    directors { id name }
+    directors { id name nationality}
     movies {
       id title releaseYear genre
-      director { name }
+      director { id name }
       reviews { id rating text }
     }
   }
@@ -54,6 +54,27 @@ export const LOGIN_USER = gql`
         email
         role
       }
+    }
+  }
+`;
+
+export const UPDATE_DIRECTOR = gql`
+  mutation UpdateDirector($id: Int!, $name: String, $nationality: String) {
+    updateDirector(id: $id, name: $name, nationality: $nationality) {
+      id
+      name
+      nationality
+    }
+  }
+`;
+
+export const UPDATE_MOVIE = gql`
+  mutation UpdateMovie($id: Int!, $title: String, $releaseYear: Int, $genre: MovieGenre) {
+    updateMovie(id: $id, title: $title, releaseYear: $releaseYear, genre: $genre) {
+      id
+      title
+      releaseYear
+      genre
     }
   }
 `;

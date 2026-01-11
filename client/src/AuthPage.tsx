@@ -38,12 +38,10 @@ interface RegisterVars {
 
 function AuthPage() {
   const [isRegister, setIsRegister] = useState(true)
-
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('STUDENT')
-
   const [success, setSuccess] = useState('')
 
   const navigate = useNavigate()
@@ -59,13 +57,14 @@ function AuthPage() {
     setSuccess('')
 
     if (isRegister) {
-      const res = await registerUser({
+      await registerUser({
         variables: { name, email, password, role },
       })
-
-      if (res.data) {
-        navigate('/home')
-      }
+      setSuccess('Cont creat cu succes')
+      setName('')
+      setEmail('')
+      setPassword('')
+      navigate('/home')
     } else {
       const res = await loginUser({
         variables: { email, password },
@@ -89,7 +88,9 @@ function AuthPage() {
           <button
             onClick={() => setIsRegister(true)}
             className={`px-4 py-2 rounded-full font-semibold transition ${
-              isRegister ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'
+              isRegister
+                ? 'bg-indigo-600 text-white'
+                : 'bg-gray-200 text-gray-700'
             }`}
           >
             Register
@@ -97,19 +98,27 @@ function AuthPage() {
           <button
             onClick={() => setIsRegister(false)}
             className={`px-4 py-2 rounded-full font-semibold transition ${
-              !isRegister ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'
+              !isRegister
+                ? 'bg-indigo-600 text-white'
+                : 'bg-gray-200 text-gray-700'
             }`}
           >
             Login
           </button>
         </div>
 
-        {success && <p className="text-green-600 text-center mb-3">{success}</p>}
+        {success && (
+          <p className="text-green-600 text-center mb-3">{success}</p>
+        )}
         {regError && isRegister && (
-          <p className="text-red-600 text-center mb-3">{regError.message}</p>
+          <p className="text-red-600 text-center mb-3">
+            {regError.message}
+          </p>
         )}
         {loginError && !isRegister && (
-          <p className="text-red-600 text-center mb-3">{loginError.message}</p>
+          <p className="text-red-600 text-center mb-3">
+            {loginError.message}
+          </p>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
