@@ -13,6 +13,17 @@ export class MovieService {
     return await director.save();
   }
 
+  static async updateDirector(id: number, name?: string, nationality?: string) {
+    const director = await Director.findOneBy({ id });
+    if (!director) throw new Error("Directorul nu a fost găsit!");
+
+    if (name) director.name = name;
+    if (nationality) director.nationality = nationality;
+
+    await director.save();
+    return director;
+  }
+
   static async getAllMovies() {
     return await Movie.find({ relations: ["director", "reviews"] });
   }
@@ -28,6 +39,23 @@ export class MovieService {
 
     const movie = Movie.create({ title, releaseYear, genre, director });
     return await movie.save();
+  }
+
+  static async updateMovie(
+    id: number,
+    title?: string,
+    releaseYear?: number,
+    genre?: MovieGenre
+  ) {
+    const movie = await Movie.findOneBy({ id });
+    if (!movie) throw new Error("Filmul nu a fost găsit!");
+
+    if (title) movie.title = title;
+    if (releaseYear) movie.releaseYear = releaseYear;
+    if (genre) movie.genre = genre;
+
+    await movie.save();
+    return movie;
   }
 
   static async deleteMovie(id: number) {

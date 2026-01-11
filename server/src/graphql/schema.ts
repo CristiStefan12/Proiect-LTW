@@ -55,8 +55,11 @@ export const schema = `
     addMovie(title: String!, releaseYear: Int!, genre: MovieGenre!, directorId: ID!): Movie!
     deleteMovie(id: ID!): String
     addReview(movieId: ID!, rating: Int!, text: String!): Review!
+    updateDirector(id: ID!, name: String, nationality: String): Director
+    updateMovie(id: ID!, title: String, releaseYear: Int, genre: MovieGenre): Movie
     
     registerUser(name: String!, email: String!, password: String!, role: Role!): User!
     loginUser(email: String!, password: String!): AuthPayload!
+    
   }
 `;

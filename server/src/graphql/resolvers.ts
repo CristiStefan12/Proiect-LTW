@@ -18,6 +18,12 @@ export const resolvers: IResolvers = {
     addReview: async (_, { movieId, rating, text }) =>
       MovieService.addReview(parseInt(movieId), rating, text),
 
+    updateDirector: async (_, { id, name, nationality }) =>
+      MovieService.updateDirector(parseInt(id), name, nationality),
+
+    updateMovie: async (_, { id, title, releaseYear, genre }) =>
+      MovieService.updateMovie(parseInt(id), title, releaseYear, genre),
+
     registerUser: async (_, { name, email, password, role }) =>
       UserService.register(name, email, password, role),
 
